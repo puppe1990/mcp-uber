@@ -4,9 +4,17 @@ src/
 .git/
 .gitignore
 tsconfig.json
+tsconfig.test.json
 node_modules/
 *.log
 .DS_Store
 claude-config.json
 examples/
 src/oauth-callback-server.ts
+.github/
+.husky/
+tests/
+vitest.config.ts
+eslint.config.js
+.prettierrc.json
+.prettierignore

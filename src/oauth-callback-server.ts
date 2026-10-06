@@ -11,9 +11,10 @@ const PORT = 3000;
 // OAuth callback endpoint
 app.get('/callback', async (req, res) => {
   const { code, state } = req.query;
-  
+
   if (!code) {
-    return res.status(400).send('Missing authorization code');
+    res.status(400).send('Missing authorization code');
+    return;
   }
 
   try {

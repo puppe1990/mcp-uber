@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Simple OAuth callback server for testing Uber MCP integration
- * 
+ *
  * Usage:
  * 1. Install dependencies: npm install express axios dotenv
  * 2. Run: node oauth-server.js
@@ -21,7 +21,7 @@ const PORT = process.env.OAUTH_SERVER_PORT || 3000;
 // OAuth callback endpoint
 app.get('/callback', async (req, res) => {
   const { code, state } = req.query;
-  
+
   if (!code) {
     return res.status(400).send('Missing authorization code');
   }
