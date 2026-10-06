@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it } from 'vitest';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
-import { createUberServer } from '../src/index.js';
+import { createUberServer } from '../src/server.js';
 import { UberClient } from '../src/uber-client.js';
 import type { UberConfig } from '../src/types.js';
 
@@ -122,15 +122,17 @@ describe('mcp-uber server', () => {
       },
     });
 
-    expect(firstText(result.content)).toContain('User not authenticated');
+    expect(firstText(result.content)).toContain('User "anonymous" is not authenticated');
   });
 
-  it('reports an error for unknown tools', async () => {
+  it('reports an error listing valid tools for an unknown tool', async () => {
     session = await createSession();
 
     const result = await session.client.callTool({ name: 'uber_nope', arguments: {} });
+    const text = firstText(result.content);
 
-    expect(firstText(result.content)).toBe('Error: Unknown tool: uber_nope');
+    expect(text).toContain('Unknown tool: uber_nope');
+    expect(text).toContain('uber_get_auth_url');
   });
 
   it('reports an error when required arguments are missing', async () => {
