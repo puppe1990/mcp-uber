@@ -37,10 +37,10 @@ export interface PriceEstimate {
 export interface RideRequest {
   request_id: string;
   status: string;
-  driver?: any;
+  driver?: Record<string, unknown>;
   eta?: number;
   location?: Location;
-  vehicle?: any;
+  vehicle?: Record<string, unknown>;
   pickup: Location;
   destination: Location;
 }

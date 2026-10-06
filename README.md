@@ -1,5 +1,7 @@
 # MCP Uber Server
 
+[![CI](https://github.com/puppe1990/mcp-uber/actions/workflows/ci.yml/badge.svg)](https://github.com/puppe1990/mcp-uber/actions/workflows/ci.yml)
+
 An MCP (Model Context Protocol) server for booking Uber rides through AI assistants.
 
 ## Features
@@ -13,11 +15,13 @@ An MCP (Model Context Protocol) server for booking Uber rides through AI assista
 ## Installation
 
 ### Using npm (global installation)
+
 ```bash
 npm install -g mcp-uber
 ```
 
 ### Using npx (no installation required)
+
 ```bash
 npx mcp-uber
 ```
@@ -30,7 +34,7 @@ npx mcp-uber
 2. Click "Sign in" and either:
    - Use an existing Uber rider/driver account
    - Create a new account specifically for development
-   
+
 **💡 Tip:** For organizations, create an email alias (e.g., dev@yourcompany.com) instead of using a personal account for easier ownership transfer.
 
 ### Step 2: Create a New App
@@ -69,6 +73,7 @@ Create environment variables with your credentials (see Configuration section be
 ## Usage with Claude Desktop
 
 ### Using npm (global installation)
+
 Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/claude_desktop_config.json`):
 
 ```json
@@ -88,6 +93,7 @@ Add to your Claude Desktop configuration (`~/Library/Application Support/Claude/
 ```
 
 ### Using npx
+
 Add to your Claude Desktop configuration:
 
 ```json
@@ -131,7 +137,7 @@ Add to your Claude Desktop configuration:
 The MCP server requires the following environment variables:
 
 - `UBER_CLIENT_ID`: Your Uber app client ID
-- `UBER_CLIENT_SECRET`: Your Uber app client secret  
+- `UBER_CLIENT_SECRET`: Your Uber app client secret
 - `UBER_REDIRECT_URI`: OAuth callback URL (default: `http://localhost:3000/callback`)
 - `UBER_ENVIRONMENT`: Either `sandbox` or `production` (default: `sandbox`)
 
@@ -187,6 +193,24 @@ The MCP server requires the following environment variables:
 - **"Invalid scope" error**: Your app needs approval for privileged scopes in production
 - **"Invalid redirect URI"**: Make sure your redirect URI exactly matches what's configured in the Uber dashboard
 - **"Unauthorized" errors**: Check that your access token is valid and not expired
+
+## Development
+
+```bash
+npm install
+```
+
+| Command                | Description                         |
+| ---------------------- | ----------------------------------- |
+| `npm run build`        | Compile TypeScript to `dist/`       |
+| `npm run dev`          | Run the server in watch mode        |
+| `npm test`             | Run the test suite (Vitest)         |
+| `npm run lint`         | Lint with ESLint                    |
+| `npm run format`       | Format with Prettier                |
+| `npm run typecheck`    | Typecheck sources and tests         |
+| `npm run oauth-server` | Run the local OAuth callback server |
+
+Pre-commit hooks (husky + lint-staged) run ESLint, Prettier and the test suite on every commit. CI runs lint, format check, typecheck, tests and build on Node.js 22 and 24.
 
 ## Resources
 

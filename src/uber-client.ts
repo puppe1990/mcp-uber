@@ -1,5 +1,14 @@
 import axios, { AxiosInstance } from 'axios';
-import { UberConfig, UberToken, Location, PriceEstimate, RideRequest } from './types.js';
+import { UberConfig, UberToken, PriceEstimate, RideRequest } from './types.js';
+
+interface RideRequestPayload {
+  product_id: string;
+  start_latitude: number;
+  start_longitude: number;
+  end_latitude: number;
+  end_longitude: number;
+  fare_id?: string;
+}
 
 export class UberClient {
   private config: UberConfig;
@@ -39,7 +48,7 @@ export class UberClient {
       redirect_uri: this.config.redirectUri,
       code,
     });
-    
+
     this.token = response.data;
     if (this.token) {
       this.setAccessToken(this.token.access_token);
@@ -51,7 +60,7 @@ export class UberClient {
     startLat: number,
     startLng: number,
     endLat: number,
-    endLng: number
+    endLng: number,
   ): Promise<PriceEstimate[]> {
     const response = await this.api.get('/v1.2/estimates/price', {
       params: {
@@ -70,9 +79,9 @@ export class UberClient {
     startLng: number,
     endLat: number,
     endLng: number,
-    fareId?: string
+    fareId?: string,
   ): Promise<RideRequest> {
-    const payload: any = {
+    const payload: RideRequestPayload = {
       product_id: productId,
       start_latitude: startLat,
       start_longitude: startLng,
@@ -97,7 +106,7 @@ export class UberClient {
     await this.api.delete(`/v1.2/requests/${requestId}`);
   }
 
-  async getProducts(latitude: number, longitude: number): Promise<any[]> {
+  async getProducts(latitude: number, longitude: number): Promise<Record<string, unknown>[]> {
     const response = await this.api.get('/v1.2/products', {
       params: {
         latitude,
