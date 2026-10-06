@@ -14,6 +14,7 @@ src/oauth-callback-server.ts
 .github/
 .husky/
 tests/
+AGENTS.md
 vitest.config.ts
 eslint.config.js
 .prettierrc.json
